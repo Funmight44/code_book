@@ -1,35 +1,46 @@
 import { useRef } from "react";
 import {useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { login } from "../services/authService";
+import Usetitle from "../hooks/useTitle";
 
 const Login = () => {
     const email = useRef();
     const password = useRef();
     const navigate = useNavigate();
+
+    Usetitle('login');
    
     async function handleLogin(event) {
         event.preventDefault();
+        try{
+                const authDetails = {
+                    email: email.current.value,
+                    password: password.current.value
+                };
+            
+                //copied to authService.js
+            //     const postRequest = {  
+            //         method: "POST",
+            //         headers: {"content-type": "application/json"},
+            //         body: JSON.stringify(authDetails)
+            //   }
+            
+            //     const resp = await fetch('http://localhost:8000/login', postRequest);
+            //     const data = await resp.json();
+            //     data.accessToken ? navigate('/products') : toast.error(data);
 
-        const authDetails = {
-            email: email.current.value,
-            password: password.current.value
-        };
-    
-        const postRequest = {  
-            method: "POST",
-            headers: {"content-type": "application/json"},
-            body: JSON.stringify(authDetails)
-      }
-    
-        const resp = await fetch('http://localhost:8000/login', postRequest);
-        const data = await resp.json();
-        data.accessToken ? navigate('/products') : toast.error(data);
+            //     if(data.accessToken){
+            //         sessionStorage.setItem("token", JSON.stringify(data.accessToken));
+            //         sessionStorage.setItem("cbid", JSON.stringify(data.user.id))
+            //     }
 
-        if(data.accessToken){
-            sessionStorage.setItem("token", JSON.stringify(data.accessToken));
-            sessionStorage.setItem("cbid", JSON.stringify(data.user.id))
+            const data = await login(authDetails);
+            data.accessToken ? navigate('/products') : toast.error(data);
+        }catch(error){
+            toast.error(error.message, {closeButton: true, position:"bottom-center"})
         }
-    }
+    };
 
 
     return ( 

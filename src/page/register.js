@@ -1,30 +1,39 @@
 import { useNavigate } from 'react-router-dom';
 import { toast} from 'react-toastify';
-
+import { register } from '../services/authService';
+import Usetitle from '../hooks/useTitle';
 
 
 const Register = () => {
-    const navigate = useNavigate()
+    Usetitle('Register')
+    const navigate = useNavigate();
 
     async function handleRegister(event) {
         event.preventDefault();
-        const authDetails = {
-            name: event.target.name.value,
-            email: event.target.email.value,
-            password: event.target.password.value,
-        }
+        try{
+            const authDetails = {
+                name: event.target.name.value,
+                email: event.target.email.value,
+                password: event.target.password.value,
+            }
 
-        const postRequest = {  
-                method: "POST",
-                headers: {"content-type": "application/json"},
-                body: JSON.stringify(authDetails)
-        }
+                    //copied to authService.js
+            // const postRequest = {  
+            //         method: "POST",
+            //         headers: {"content-type": "application/json"},
+            //         body: JSON.stringify(authDetails)
+            // }
 
-        const resp = await fetch('http://localhost:8000/register', postRequest)
-        const data = await resp.json();
-        data.accessToken ? navigate('/products') : toast.error(data)
-        console.log(data)
-    }
+            // const resp = await fetch('http://localhost:8000/register', postRequest)
+            // const data = await resp.json();
+            // data.accessToken ? navigate('/products') : toast.error(data);
+
+            const data = await register(authDetails);
+            data.accessToken ? navigate('/products') : toast.error(data);
+        }catch(error){
+            toast.error(error.message, {closeButton: true, position:"bottom-center"})
+        }
+    };
 
 
 

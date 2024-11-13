@@ -48,7 +48,7 @@ const Header = () => {
                     </span>                    
                     </Link>
                     <span  onClick={() => setShowDDown(!showDropdown)}  className="bi bi-person-circle cursor-pointer text-2xl text-gray-700 dark:text-white"></span>
-                    {showDropdown && (token ? <DdownLogin  setShowDDown={showDropdown}/> : <DropdownLogOut setShowDDown={showDropdown}/>)}
+                    {showDropdown && (token ? <DdownLogin  setShowDDown={setShowDDown}/> : <DropdownLogOut setShowDDown={setShowDDown}/>)}
                 </div>
             </div>
         </nav>

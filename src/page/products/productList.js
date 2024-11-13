@@ -4,28 +4,34 @@ import Cards from "../../components/productcard";
 import { useLocation } from "react-router-dom";
 import Usetitle from "../../hooks/useTitle";
 import { useFilter } from "../../content/filterContent";
+import { getProductList } from "../../services/producService";
+import { toast } from "react-toastify";
 
 const ProductLists = () => {
+    Usetitle("explore ebook collection");
     const {productLists, initProductList} = useFilter();
 
     const [show, setShow] = useState(false)
-    // const [products, setProducts] = useState([]);  //using useFilter() from useContent instaed of useState
+    // const [products, setProducts] = useState([]);  //using useFilter() from useContent instead of useState
 
     const search = useLocation().search
     const searchTerm = new URLSearchParams(search).get('q')
     
-
-    Usetitle("explore ebook collection")
-
     useEffect(() => {
         async function fetchProducts() {
-            const response = await fetch(`http://localhost:8000/products?name_like=${searchTerm ? searchTerm : ''}`);
-            const data = await response.json();
-            // setProducts(data);
-            initProductList(data)
+            try{
+                    //copied to productService.js
+                // const response = await fetch(`http://localhost:8000/products?name_like=${searchTerm ? searchTerm : ''}`);
+                // const data = await response.json();
+                // setProducts(data);
+                const data = await getProductList(searchTerm)
+                initProductList(data)
+            }catch(error){
+                toast.error(error.message, {closeButton: true, position:"bottom-center"})
+            } 
         }
         fetchProducts();
-    }, [searchTerm])
+    }, [searchTerm]) //eslint-disable-line
 
 
     return ( 

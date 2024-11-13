@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import Rating  from '../components/rating'
 import Usetitle from "../hooks/useTitle";
 import { useCart } from "../content/cartContext";
+import { toast } from "react-toastify";
+
+
 
 const ProductDetail = () => {
     const params = useParams();
@@ -16,9 +19,16 @@ const ProductDetail = () => {
 
     useEffect(() => {
         async function fetchProduct() {
-            const response = await fetch(`http://localhost:8000/products/${params.id}`);
-            const data = await response.json();
-            setProduct(data);
+            try{
+                const response = await fetch(`${process.env.REACT_APP_HOST}/444/products/${params.id}`);
+                if(!response.ok){
+                    throw {message: response.statusText, status: response.status}
+                };
+                const data = await response.json();
+                setProduct(data);
+            }catch(error){
+                 toast.error(error.message, {closeButton: true, position:"bottom-center"})
+            }
         }
         fetchProduct();
     }, [params.id]);
