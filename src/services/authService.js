@@ -8,7 +8,7 @@ export async function login(authDetails) {
 
     const response = await fetch(`${process.env.REACT_APP_HOST}/login`, postRequest);
     if(!response.ok){
-        throw {message: response.statusText, status: response.status}
+        throw {message: response.statusText, status: response.status} //eslint-disable-line
     };
     const data = await response.json();
 
@@ -31,7 +31,7 @@ export async function register(authDetails) {
 
         const response = await fetch(`${process.env.REACT_APP_HOST}/register`, postRequest);
         if(!response.ok){
-            throw {message: response.statusText, status: response.status}
+            throw {message: response.statusText, status: response.status} //eslint-disable-line
         };
         const data = await response.json();
         

@@ -9,7 +9,7 @@ export async function getUser() {
         headers: {'Content-type': 'application/json', Authorization: `Bearer ${token}`}
     });
     if(!resp.ok){
-        throw {message: resp.statusText, status: resp.status}
+        throw {message: resp.statusText, status: resp.status} //eslint-disable-line
     };
     const data = await resp.json();
     return data;
@@ -35,7 +35,7 @@ export async function createOrder(cartList, total, user) {
         body: JSON.stringify(order)
     });
     if(!response.ok){
-        throw {message: response.statusText, status: response.status}
+        throw {message: response.statusText, status: response.status} //eslint-disable-line
     };
     const data = await response.json();
     return data;
@@ -48,10 +48,10 @@ export async function getuserOrder() {
 
     const response = await fetch(`${process.env.REACT_APP_HOST}/660/orders?userOrder.id=${cbid}`, {
         method: "GET",  
-        headers: {'Content-type': 'application/json', Authorization: `Bearer ${token}`},
+        headers: {'Content-type': 'application/json', Authorization: `Bearer ${token}`},   
     });
     if(!response.ok){
-        throw {message: response.statusText, status: response.status}
+        throw {message: response.statusText, status: response.status}  //eslint-disable-line
     };
     const data = await response.json();
     return data;
