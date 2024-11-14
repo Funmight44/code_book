@@ -239,5 +239,11 @@
   ],
   "orders": [],
   "users": [
+    {
+      "email": "mary@example.com",
+      "password": "$2a$10$wil/GTde2lWxrDaNIvOV/eiULwE082JrbXDigFH2D0dTBtZKYd0ai",
+      "name": "Mary",
+      "id": 1
+    }
   ]
 }
