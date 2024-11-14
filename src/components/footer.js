@@ -11,7 +11,7 @@ const Footer = () => {
         <footer>
             <div className=" bg-white shadow flex items-center justify-between p-4 bt-gray dark:bg-gray-800">
                 <div>
-                    <span>@copywrite 2024</span>
+                    <span>copywrite @funmight 2024</span>
                 </div>
 
                 <div className="flex items-center">
